@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header';
+import AceEditor from './components/Aceeditor';
 
 class App extends Component {
   render() {
@@ -9,10 +10,13 @@ class App extends Component {
         <div>
             <Header/>
             <div className="row">
-              <div className="col-6">
-                  <h1>Part 1</h1>
+              <div className="col-5">
+                  <AceEditor />
               </div>
-              <div className="col-6">
+              <div className="col-2">
+                  <h3>Convert</h3>
+              </div>
+              <div className="col-5">
                   <h1>Part 2</h1>
               </div>
             </div>
