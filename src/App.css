@@ -3,6 +3,10 @@
 }
 
 .midbar {
-
     background-color: #95A5A6;
+}
+
+.json-table * {
+    border: solid 1px grey;
+    padding: 5px;
 }

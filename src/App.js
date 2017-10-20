@@ -18,7 +18,11 @@ class App extends Component {
             if(!this.state.editorContent.length) return;
             try {
                 const validJSON = JSON.parse(this.state.editorContent);
-                alert("valid")
+                const keys = Object.keys(validJSON[0]);
+                this.setState({
+                    keys,
+                    validJSON
+                });
             }
             catch(e){
                 alert("Invalid JSON");
@@ -49,7 +53,40 @@ class App extends Component {
                           </button>
                       </div>
                       <div className="col-6">
-                          <h1>Part 2</h1>
+                          <h1>Table view</h1>
+                          {this.state.keys && this.state.keys.length &&
+                              <table className="json-table">
+                                  <tr>
+                                      {
+                                          this.state.keys.map((element,index) => {
+                                              return(
+                                                  <th key={index}> {element} </th>
+                                              );
+                                          })
+                                      }
+                                  </tr>
+                                  {
+                                      this.state.validJSON && this.state.validJSON.length &&
+                                      this.state.validJSON.map((element,index) => {
+                                          return(
+                                            <tr key={index}>
+                                                {
+                                                    this.state.keys.map((value,indexvalue)=>{
+                                                        return(
+                                                            <td key={indexvalue}>
+                                                                {element[value]}
+                                                            </td>
+                                                        );
+                                                    })
+                                                }
+                                            </tr>
+                                          );
+                                      })
+                                  }
+                              </table>
+
+
+                          }
                       </div>
                     </div>
                 </div>
