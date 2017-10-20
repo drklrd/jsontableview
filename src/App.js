@@ -52,7 +52,7 @@ class App extends Component {
                               Convert
                           </button>
                       </div>
-                      <div className="col-6">
+                      <div className="col-6 table-area">
                           <h1>Table view</h1>
                           {this.state.keys && this.state.keys.length &&
                               <table className="json-table">
@@ -75,7 +75,7 @@ class App extends Component {
                                                         this.state.keys.map((value,indexvalue)=>{
                                                             return(
                                                                 <td key={indexvalue}>
-                                                                    {element[value]}
+                                                                    <input defaultValue={element[value]} className="table-input"></input>
                                                                 </td>
                                                             );
                                                         })
