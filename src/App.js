@@ -56,33 +56,35 @@ class App extends Component {
                           <h1>Table view</h1>
                           {this.state.keys && this.state.keys.length &&
                               <table className="json-table">
-                                  <tr>
+                                  <tbody>
+                                      <tr>
+                                          {
+                                              this.state.keys.map((element,index) => {
+                                                  return(
+                                                      <th key={index}> {element} </th>
+                                                  );
+                                              })
+                                          }
+                                      </tr>
                                       {
-                                          this.state.keys.map((element,index) => {
+                                          this.state.validJSON && this.state.validJSON.length &&
+                                          this.state.validJSON.map((element,index) => {
                                               return(
-                                                  <th key={index}> {element} </th>
+                                                <tr key={index}>
+                                                    {
+                                                        this.state.keys.map((value,indexvalue)=>{
+                                                            return(
+                                                                <td key={indexvalue}>
+                                                                    {element[value]}
+                                                                </td>
+                                                            );
+                                                        })
+                                                    }
+                                                </tr>
                                               );
                                           })
                                       }
-                                  </tr>
-                                  {
-                                      this.state.validJSON && this.state.validJSON.length &&
-                                      this.state.validJSON.map((element,index) => {
-                                          return(
-                                            <tr key={index}>
-                                                {
-                                                    this.state.keys.map((value,indexvalue)=>{
-                                                        return(
-                                                            <td key={indexvalue}>
-                                                                {element[value]}
-                                                            </td>
-                                                        );
-                                                    })
-                                                }
-                                            </tr>
-                                          );
-                                      })
-                                  }
+                                  </tbody>
                               </table>
 
 
