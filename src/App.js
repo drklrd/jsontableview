@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './components/Header';
-import AceEditor from 'react-ace';
-import 'brace/mode/java';
-import 'brace/theme/monokai';
+import AceEditor from './components/Aceeditor';
 
 class App extends Component {
 
@@ -13,22 +11,24 @@ class App extends Component {
                 editorContent : ""
             };
             this.onClickHandler = this.onClickHandler.bind(this);
-            this.handleInEditorChange = this.handleInEditorChange.bind(this);
+            this.setValue = this.setValue.bind(this);
         }
 
         onClickHandler(){
+            if(!this.state.editorContent.length) return;
             try {
                 const validJSON = JSON.parse(this.state.editorContent);
+                alert("valid")
             }
             catch(e){
                 alert("Invalid JSON");
             }
         }
 
-        handleInEditorChange(value){
+        setValue(value){
             this.setState({
                 editorContent : value
-            })
+            });
         }
 
         render() {
@@ -38,17 +38,13 @@ class App extends Component {
                     <div className="row">
                       <div className="col-4">
                           <AceEditor
-                              ref="aceeditor"
-                              mode="java"
-                              theme="monokai"
-                              width="100%" height="92vh"
-                              value={this.state.editorContent}
-                              onChange={this.handleInEditorChange}
+                              editorValue = {this.state.editorContent}
+                              setValue={this.setValue}
                           />
                       </div>
                       <div className="col-2 midbar">
                           <h3>Convert</h3>
-                          <button className="col-xs-6 btn btn-primary" onClick={this.onClickHandler}  >
+                          <button className="text-align container btn btn-primary" onClick={this.onClickHandler}  >
                               Convert
                           </button>
                       </div>
