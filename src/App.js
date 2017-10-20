@@ -12,6 +12,7 @@ class App extends Component {
             };
             this.onClickHandler = this.onClickHandler.bind(this);
             this.setValue = this.setValue.bind(this);
+            this.inputChanged = this.inputChanged.bind(this);
         }
 
         onClickHandler(){
@@ -33,6 +34,17 @@ class App extends Component {
             this.setState({
                 editorContent : value
             });
+        }
+
+        inputChanged(index,e,key){
+            const json = this.state.validJSON;
+            json[index][key] = e.target.value;
+            console.log('@@@',json)
+            this.setState({
+                validJSON : json,
+                editorContent : JSON.stringify(json,null,'\t')
+            })
+
         }
 
         render() {
@@ -75,7 +87,7 @@ class App extends Component {
                                                         this.state.keys.map((value,indexvalue)=>{
                                                             return(
                                                                 <td key={indexvalue}>
-                                                                    <input defaultValue={element[value]} className="table-input"></input>
+                                                                    <input defaultValue={element[value]} onChange={(indexvalue)=>this.inputChanged(index,indexvalue,value)} className="table-input"></input>
                                                                 </td>
                                                             );
                                                         })
