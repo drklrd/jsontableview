@@ -85,7 +85,8 @@ class App extends Component {
         }
 
         preserveDatatype(original,value){
-            return typeof original === 'number' ? Number(value) : value;
+            let toReturn = isNaN(Number(value)) ? value : (Number(value));
+            return toReturn || '';
         }
 
         render() {
