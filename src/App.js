@@ -18,6 +18,7 @@ class App extends Component {
             this.onClickHandler = this.onClickHandler.bind(this);
             this.setValue = this.setValue.bind(this);
             this.inputChanged = this.inputChanged.bind(this);
+            this.inputChangedChild = this.inputChangedChild.bind(this);
         }
 
         onClickHandler(){
@@ -64,6 +65,25 @@ class App extends Component {
             })
         }
 
+        inputChangedChild(elementpath,key,inputvalue,indexvalue){
+            elementpath = elementpath + `-${indexvalue}`;
+            let traverse = elementpath.split('-');
+            let travereddata=  this.state.validJSON;
+            traverse.forEach((trav)=>{
+                if(Number.isInteger(Number(trav))){
+                    travereddata = travereddata[Number(trav)];
+                }else{
+                    travereddata = travereddata[trav];
+                }
+            })
+            travereddata[key] = inputvalue.target.value;
+            this.setState({
+                validJSON : this.state.validJSON,
+                editorContent : JSON.stringify(this.state.validJSON,null,'\t')
+            })
+
+        }
+
         render() {
             return (
                 <div className="App">
@@ -81,7 +101,7 @@ class App extends Component {
                           </button>
                       </div>
                       <div className="col-6 table-area">
-                          <Tabulator  keys={this.state.keys} validJSON={this.state.validJSON} inputChanged={this.inputChanged} />
+                          <Tabulator  keys={this.state.keys} validJSON={this.state.validJSON} inputChanged={this.inputChanged}  inputChangedChild={this.inputChangedChild}/>
                       </div>
                     </div>
                 </div>

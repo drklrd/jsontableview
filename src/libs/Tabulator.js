@@ -2,7 +2,7 @@ import React , { Component } from 'react';
 
 export default class Tabulator extends  Component {
 
-    renderChildTable(obj){
+    renderChildTable(obj,elementpath){
         let objKeys = Object.keys(obj[0]);
         return(
             <div>
@@ -27,8 +27,8 @@ export default class Tabulator extends  Component {
                                               objKeys.map((value,indexvalue)=>{
                                                   return(
                                                       <td key={indexvalue}>
-                                                          { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value]) }
-                                                          { element[value] && typeof element[value] !== 'object' && element[value] }
+                                                          { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value],elementpath+`-${index}-${value}`) }
+                                                          { element[value] && typeof element[value] !== 'object' && <input value={element[value]} onChange={(inputvalue)=>this.props.inputChangedChild(elementpath,value,inputvalue,index)} className="table-input"></input> }
                                                       </td>
                                                   );
                                               })
@@ -69,7 +69,7 @@ export default class Tabulator extends  Component {
                                                   return(
                                                       <td key={indexvalue}>
                                                           { element[value] && typeof element[value] !== 'object' && <input value={element[value]} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input"></input>}
-                                                          { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value]) }
+                                                          { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value],`${index}-${value}`) }
                                                           { !element[value] && <input value={undefined} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input"></input> }
                                                       </td>
                                                   );
