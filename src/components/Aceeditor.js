@@ -22,6 +22,7 @@ export default class Aceeditor extends Component{
                 width="100%" height="92vh"
                 value = {this.props.editorValue}
                 onChange={this.handleInEditorChange}
+                editorProps={{$blockScrolling: true}}
             />
         );
     }
