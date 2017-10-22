@@ -3,6 +3,11 @@ import React , { Component } from 'react';
 export default class Tabulator extends  Component {
 
     renderChildTable(obj,elementpath){
+
+        if(!Array.isArray(obj)){
+            obj = [obj];
+        }
+
         let objKeys = Object.keys(obj[0]);
         return(
             <div>

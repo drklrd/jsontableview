@@ -58,7 +58,7 @@ class App extends Component {
 
         inputChanged(index,e,key){
             const json = this.state.validJSON;
-            json[index][key] = e.target.value;
+            json[index][key] = this.preserveDatatype(json[index][key],e.target.value);
             this.setState({
                 validJSON : json,
                 editorContent : JSON.stringify(json,null,'\t')
@@ -76,12 +76,16 @@ class App extends Component {
                     travereddata = travereddata[trav];
                 }
             })
-            travereddata[key] = inputvalue.target.value;
+            travereddata[key] = this.preserveDatatype(travereddata[key],inputvalue.target.value) ;
             this.setState({
                 validJSON : this.state.validJSON,
                 editorContent : JSON.stringify(this.state.validJSON,null,'\t')
             })
 
+        }
+
+        preserveDatatype(original,value){
+            return typeof original === 'number' ? Number(value) : value;
         }
 
         render() {
