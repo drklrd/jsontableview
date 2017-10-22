@@ -23,7 +23,17 @@ class App extends Component {
                 if(!Array.isArray(validJSON)){
                     validJSON = [validJSON];
                 }
-                const keys = Object.keys(validJSON[0]);
+                let uniqueKeys = [];
+                validJSON.forEach(json=>{
+                    if(typeof json === "object"){
+                        for(var key in json){
+                            if(uniqueKeys.indexOf(key) === -1){
+                                uniqueKeys.push(key);
+                            }
+                        }
+                    }
+                })
+                const keys = uniqueKeys;
                 this.setState({
                     keys,
                     validJSON

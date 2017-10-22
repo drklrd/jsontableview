@@ -26,7 +26,8 @@ export default class Tabulator extends  Component {
                                               this.props.keys.map((value,indexvalue)=>{
                                                   return(
                                                       <td key={indexvalue}>
-                                                          <input value={typeof element[value] === 'object' ? JSON.stringify(element[value]) : element[value]} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input"></input>
+                                                          { element[value] && <input value={typeof element[value] === 'object' ? JSON.stringify(element[value]) : element[value]} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input"></input>}
+                                                          { !element[value] && <input value={undefined} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input"></input> }
                                                       </td>
                                                   );
                                               })
