@@ -3,13 +3,17 @@ import './App.css';
 import Header from './components/Header';
 import AceEditor from './components/Aceeditor';
 import Tabulator from './libs/Tabulator';
+import Cookie from 'react-cookies';
 
 class App extends Component {
 
         constructor(){
             super();
+            if(Cookie.load('json')){
+                console.log(Cookie.load('json'))
+            }
             this.state = {
-                editorContent : ""
+                editorContent : Cookie.load('json') ? JSON.stringify(Cookie.load('json'),null,'\t') : ""
             };
             this.onClickHandler = this.onClickHandler.bind(this);
             this.setValue = this.setValue.bind(this);
@@ -45,6 +49,7 @@ class App extends Component {
         }
 
         setValue(value){
+            Cookie.save('json',(value));
             this.setState({
                 editorContent : value
             });
@@ -57,7 +62,6 @@ class App extends Component {
                 validJSON : json,
                 editorContent : JSON.stringify(json,null,'\t')
             })
-
         }
 
         render() {
@@ -72,16 +76,12 @@ class App extends Component {
                           />
                       </div>
                       <div className="col-2 midbar">
-                          <h3>Convert</h3>
-                          <button className="text-align container btn btn-primary" onClick={this.onClickHandler}  >
+                          <button className="text-align container btn btn-primary btn-convert" onClick={this.onClickHandler}  >
                               Convert
                           </button>
                       </div>
                       <div className="col-6 table-area">
-                          <h1>Table view</h1>
-
                           <Tabulator  keys={this.state.keys} validJSON={this.state.validJSON} inputChanged={this.inputChanged} />
-
                       </div>
                     </div>
                 </div>

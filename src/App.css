@@ -1,5 +1,5 @@
 .App{
-    background-color: #ECF0F1;
+    background-color: #ecf0f1;
 }
 
 .midbar {
@@ -13,4 +13,19 @@
 
 .table-input{
     width: 100px;
+}
+
+.btn-convert{
+    background-color: #2c3e50;
+    border: none;
+    margin-top: 25px;
+}
+
+.btn-convert:hover{
+    background-color: #34495e;
+    cursor: pointer;
+}
+
+.table-area{
+    margin-top: 15px;
 }
