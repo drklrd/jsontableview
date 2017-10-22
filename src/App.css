@@ -6,7 +6,7 @@
     background-color: #95A5A6;
 }
 
-.json-table * {
+.json-table table,.json-table td, .json-table th {
     border: solid 1px grey;
     padding: 5px;
 }
