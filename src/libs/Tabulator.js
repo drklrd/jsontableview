@@ -46,6 +46,26 @@ export default class Tabulator extends  Component {
                         </tbody>
                     </table>
                 }
+                { !objKeys.length &&
+
+                    <table className="json-table">
+                        <tbody>
+                            {
+                                obj && obj.length &&
+                                obj.map((element,index)=>{
+                                    return(
+                                            <tr key={index}>
+                                                <td>
+                                                    { element && typeof element !== 'object' && <input type="text" value={element} onChange={(inputvalue)=>this.props.inputChangedChildNoKeys(elementpath,inputvalue,index)} className="table-input"></input> }
+                                                </td>
+                                            </tr>
+                                    );
+                                })
+                            }
+                        </tbody>
+                    </table>
+
+                }
             </div>
         );
     }

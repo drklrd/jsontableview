@@ -19,6 +19,7 @@ class App extends Component {
             this.setValue = this.setValue.bind(this);
             this.inputChanged = this.inputChanged.bind(this);
             this.inputChangedChild = this.inputChangedChild.bind(this);
+            this.inputChangedChildNoKeys = this.inputChangedChildNoKeys.bind(this);
         }
 
         onClickHandler(){
@@ -65,9 +66,9 @@ class App extends Component {
             })
         }
 
-        inputChangedChild(elementpath,key,inputvalue,indexvalue){
+        pathTraversal(elementpath,validJSON){
             let traverse = elementpath.split('-');
-            let travereddata=  this.state.validJSON;
+            let travereddata= validJSON;
             traverse.forEach((trav)=>{
                 if(Number.isInteger(Number(trav))){
                     travereddata = travereddata[Number(trav)];
@@ -75,6 +76,11 @@ class App extends Component {
                     travereddata = travereddata[trav];
                 }
             })
+            return travereddata;
+        }
+
+        inputChangedChild(elementpath,key,inputvalue,indexvalue){
+            let travereddata = this.pathTraversal(elementpath,this.state.validJSON);
             if(Array.isArray(travereddata)){
                 travereddata = travereddata[indexvalue];
             }
@@ -84,6 +90,15 @@ class App extends Component {
                 editorContent : JSON.stringify(this.state.validJSON,null,'\t')
             })
 
+        }
+
+        inputChangedChildNoKeys(elementpath,inputvalue,index){
+            let travereddata = this.pathTraversal(elementpath,this.state.validJSON);
+            travereddata[index] = this.preserveDatatype(travereddata[index],inputvalue.target.value) ;
+            this.setState({
+                validJSON : this.state.validJSON,
+                editorContent : JSON.stringify(this.state.validJSON,null,'\t')
+            })
         }
 
         preserveDatatype(original,value){
@@ -107,7 +122,7 @@ class App extends Component {
                           </button>
                       </div>
                       <div className="col-6 table-area">
-                          <Tabulator  keys={this.state.keys} validJSON={this.state.validJSON} inputChanged={this.inputChanged}  inputChangedChild={this.inputChangedChild}/>
+                          <Tabulator  keys={this.state.keys} validJSON={this.state.validJSON} inputChanged={this.inputChanged}  inputChangedChild={this.inputChangedChild} inputChangedChildNoKeys={this.inputChangedChildNoKeys}/>
                       </div>
                     </div>
                 </div>

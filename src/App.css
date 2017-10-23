@@ -8,7 +8,7 @@
 
 .json-table table,.json-table td, .json-table th {
     border: solid 1px grey;
-    padding: 5px;
+    padding: 2px;
 }
 
 .table-input{
