@@ -19,10 +19,11 @@ export default class Aceeditor extends Component{
             <AceEditor
                 mode="java"
                 theme="monokai"
-                width="100%" height="92vh"
+                width="100%" height="94vh"
                 value = {this.props.editorValue}
                 onChange={this.handleInEditorChange}
                 editorProps={{$blockScrolling: true}}
+                showPrintMargin = {false}
             />
         );
     }

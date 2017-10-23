@@ -110,19 +110,17 @@ class App extends Component {
                 <div className="App">
                     <Header convertAction={this.onClickHandler}/>
                     <div className="row">
-                      <div className="col-4">
+                      <div className="col-4 padding-zero">
                           <AceEditor
                               editorValue = {this.state.editorContent}
                               setValue={this.setValue}
                           />
-                      </div>
-                      <div className="col-1 midbar">
-                          <button className="text-align container btn btn-primary btn-convert" onClick={this.onClickHandler}  >
+                          <button className=" btn btn-primary btn-convert" onClick={this.onClickHandler}  >
                               Convert &nbsp;
                               <i className="fa fa-hand-o-right" aria-hidden="true"></i>
                           </button>
                       </div>
-                      <div className="col-7 table-area">
+                      <div className="col-8 table-area">
                           <Tabulator  keys={this.state.keys} validJSON={this.state.validJSON} inputChanged={this.inputChanged}  inputChangedChild={this.inputChangedChild} inputChangedChildNoKeys={this.inputChangedChildNoKeys}/>
                       </div>
                     </div>
