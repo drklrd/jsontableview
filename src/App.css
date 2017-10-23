@@ -28,4 +28,6 @@
 
 .table-area{
     margin-top: 15px;
+    overflow-x: scroll;
+    height: 92vh;
 }
