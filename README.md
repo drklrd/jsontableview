@@ -20,3 +20,13 @@ Some  features are completed, some are buggy and under-development and some are 
 - [ ] Adding/Removing new rows from table
 - [ ] Download CSV / JSON
 - [ ] Some kind of JSON validation for the editor.
+
+
+## Setup
+
+```
+	$ git clone https://github.com/drklrd/jsontableview.git
+	$ cd jsontableview && npm install
+	$ npm start
+
+```
