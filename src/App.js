@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import Cookie from 'react-cookies';
 import './App.css';
 import Header from './components/Header';
 import AceEditor from './components/Aceeditor';
 import Tabulator from './libs/Tabulator';
-import Cookie from 'react-cookies';
 
 class App extends Component {
 
