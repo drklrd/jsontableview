@@ -66,7 +66,6 @@ class App extends Component {
         }
 
         inputChangedChild(elementpath,key,inputvalue,indexvalue){
-            elementpath = elementpath + `-${indexvalue}`;
             let traverse = elementpath.split('-');
             let travereddata=  this.state.validJSON;
             traverse.forEach((trav)=>{
@@ -76,6 +75,9 @@ class App extends Component {
                     travereddata = travereddata[trav];
                 }
             })
+            if(Array.isArray(travereddata)){
+                travereddata = travereddata[indexvalue];
+            }
             travereddata[key] = this.preserveDatatype(travereddata[key],inputvalue.target.value) ;
             this.setState({
                 validJSON : this.state.validJSON,
@@ -85,8 +87,7 @@ class App extends Component {
         }
 
         preserveDatatype(original,value){
-            let toReturn = isNaN(Number(value)) ? value : (Number(value));
-            return toReturn || '';
+            return typeof original === "number" ? Number(value) : value;
         }
 
         render() {
