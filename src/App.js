@@ -6,7 +6,6 @@ import AceEditor from './components/Aceeditor';
 import Tabulator from './libs/Tabulator';
 
 class App extends Component {
-
         constructor(){
             super();
             if(Cookie.load('json')){
@@ -71,7 +70,9 @@ class App extends Component {
             let travereddata= validJSON;
             traverse.forEach((trav)=>{
                 if(Number.isInteger(Number(trav))){
-                    travereddata = travereddata[Number(trav)];
+                    if(Array.isArray(travereddata)){
+                        travereddata = travereddata[Number(trav)];
+                    }
                 }else{
                     travereddata = travereddata[trav];
                 }
@@ -80,6 +81,7 @@ class App extends Component {
         }
 
         inputChangedChild(elementpath,key,inputvalue,indexvalue){
+            console.log('###',elementpath);
             let travereddata = this.pathTraversal(elementpath,this.state.validJSON);
             if(Array.isArray(travereddata)){
                 travereddata = travereddata[indexvalue];
@@ -93,8 +95,10 @@ class App extends Component {
         }
 
         inputChangedChildNoKeys(elementpath,inputvalue,index){
+            console.log('###',elementpath);
             let travereddata = this.pathTraversal(elementpath,this.state.validJSON);
             travereddata[index] = this.preserveDatatype(travereddata[index],inputvalue.target.value) ;
+            console.log('NICE',travereddata[index])
             this.setState({
                 validJSON : this.state.validJSON,
                 editorContent : JSON.stringify(this.state.validJSON,null,'\t')
@@ -102,7 +106,7 @@ class App extends Component {
         }
 
         preserveDatatype(original,value){
-            return typeof original === "number" ? Number(value) : value;
+            return (typeof original === "number") ? Number(value) : value;
         }
 
         render() {
