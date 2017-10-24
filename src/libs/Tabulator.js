@@ -7,45 +7,49 @@ export default class Tabulator extends  Component {
         if(!Array.isArray(obj)){
             obj = [obj];
         }
-
-        let objKeys = Object.keys(obj[0]);
-        return(
-            <div>
-                {objKeys && objKeys.length &&
-                    <table className="json-table">
-                        <tbody>
-                            <tr>
-                                {
-                                    objKeys.map((element,index) => {
-                                        return(
-                                            <th key={index}> {element} </th>
-                                        );
-                                    })
-                                }
-                            </tr>
+        let objKeys =  typeof obj[0] === "object" ?  Object.keys(obj[0]) : [];
+        let tableElement;
+        if(objKeys && objKeys.length){
+            tableElement =
+                <table className="json-table">
+                    <tbody>
+                        <tr>
                             {
-                                obj && obj.length &&
-                                obj.map((element,index) => {
+                                objKeys.map((element,index) => {
                                     return(
-                                      <tr key={index}>
-                                          {
-                                              objKeys.map((value,indexvalue)=>{
-                                                  return(
-                                                      <td key={indexvalue}>
-                                                          { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value],elementpath+ `-${index}-${value}`  ) }
-                                                          { element[value] && typeof element[value] !== 'object' && <input type="text" value={element[value]} onChange={(inputvalue)=>this.props.inputChangedChild(elementpath,value,inputvalue,index)} className="table-input form-control"></input> }
-                                                          { !element[value] && <input type="text" value={undefined} onChange={(inputvalue)=>this.props.inputChangedChild(elementpath,value,inputvalue,index)} className="table-input form-control"></input> }
-                                                      </td>
-                                                  );
-                                              })
-                                          }
-                                      </tr>
+                                        <th key={index}> {element} </th>
                                     );
                                 })
                             }
-                        </tbody>
-                    </table>
-                }
+                        </tr>
+                        {
+                            obj && obj.length &&
+                            obj.map((element,index) => {
+                                return(
+                                  <tr key={index}>
+                                      {
+                                          objKeys.map((value,indexvalue)=>{
+                                              return(
+                                                  <td key={indexvalue}>
+                                                      { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value],elementpath+ `-${index}-${value}`  ) }
+                                                      { element[value] && typeof element[value] !== 'object' && <input type="text"  disabled={typeof element[value] === "number" && element[value] % 1 !== 0 }    value={element[value]} onChange={(inputvalue)=>this.props.inputChangedChild(elementpath,value,inputvalue,index)} className="table-input form-control"></input> }
+                                                      { !element[value] && <input type="text"  value={undefined} onChange={(inputvalue)=>this.props.inputChangedChild(elementpath,value,inputvalue,index)} className="table-input form-control"></input> }
+                                                  </td>
+                                              );
+                                          })
+                                      }
+                                  </tr>
+                                );
+                            })
+                        }
+                    </tbody>
+                </table>
+        }else{
+            tableElement = <div />;
+        }
+        return(
+            <div>
+                {tableElement}
                 { !objKeys.length &&
 
                     <table className="json-table">
@@ -54,11 +58,11 @@ export default class Tabulator extends  Component {
                                 obj && obj.length &&
                                 obj.map((element,index)=>{
                                     return(
-                                            <tr key={index}>
-                                                <td>
-                                                    { element && typeof element !== 'object' && <input type="text" value={element} onChange={(inputvalue)=>this.props.inputChangedChildNoKeys(elementpath,inputvalue,index)} className="table-input form-control"></input> }
-                                                </td>
-                                            </tr>
+                                        <tr key={index}>
+                                            <td>
+                                                { element && typeof element !== 'object' && <input type="text"  disabled={typeof element === "number" && element % 1 !== 0} value={element} onChange={(inputvalue)=>this.props.inputChangedChildNoKeys(elementpath,inputvalue,index)} className="table-input form-control"></input> }
+                                            </td>
+                                        </tr>
                                     );
                                 })
                             }
@@ -94,7 +98,7 @@ export default class Tabulator extends  Component {
                                               this.props.keys.map((value,indexvalue)=>{
                                                   return(
                                                       <td key={indexvalue}>
-                                                          { element[value] && typeof element[value] !== 'object' && <input type="text" value={element[value]} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input form-control"></input>}
+                                                          { element[value] && typeof element[value] !== 'object' && <input type="text" disabled={typeof element[value] === "number" && element[value] % 1 !== 0} value={element[value]} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input form-control"></input>}
                                                           { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value],`${index}-${value}`) }
                                                           { !element[value] && <input type="text" value={undefined} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input form-control"></input> }
                                                       </td>

@@ -81,7 +81,6 @@ class App extends Component {
         }
 
         inputChangedChild(elementpath,key,inputvalue,indexvalue){
-            console.log('###',elementpath);
             let travereddata = this.pathTraversal(elementpath,this.state.validJSON);
             if(Array.isArray(travereddata)){
                 travereddata = travereddata[indexvalue];
@@ -95,7 +94,6 @@ class App extends Component {
         }
 
         inputChangedChildNoKeys(elementpath,inputvalue,index){
-            console.log('###',elementpath);
             let travereddata = this.pathTraversal(elementpath,this.state.validJSON);
             travereddata[index] = this.preserveDatatype(travereddata[index],inputvalue.target.value) ;
             console.log('NICE',travereddata[index])
@@ -114,7 +112,7 @@ class App extends Component {
                 <div className="App">
                     <Header convertAction={this.onClickHandler}/>
                     <div className="row">
-                      <div className="col-4 padding-zero">
+                      <div className="col-sm-4 col-12 padding-zero">
                           <AceEditor
                               editorValue = {this.state.editorContent}
                               setValue={this.setValue}
@@ -124,7 +122,7 @@ class App extends Component {
                               <i className="fa fa-hand-o-right" aria-hidden="true"></i>
                           </button>
                       </div>
-                      <div className="col-8 table-area">
+                      <div className="col-sm-8 col-12 table-area">
                           <Tabulator  keys={this.state.keys} validJSON={this.state.validJSON} inputChanged={this.inputChanged}  inputChangedChild={this.inputChangedChild} inputChangedChildNoKeys={this.inputChangedChildNoKeys}/>
                       </div>
                     </div>
