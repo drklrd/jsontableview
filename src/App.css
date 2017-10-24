@@ -20,8 +20,8 @@
     border: none;
     margin-top: 25px;
     position: absolute;
-    top : 0px;
-    left: 81%;
+    top : -15px;
+    left: 79%;
     z-index: 10000;
 }
 
@@ -38,4 +38,9 @@
 
 .padding-zero{
     padding: 0px !important;
+}
+
+.deleterow{
+    color: #c0392b;
+    cursor: pointer;
 }

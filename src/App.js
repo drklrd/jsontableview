@@ -19,6 +19,7 @@ class App extends Component {
             this.inputChanged = this.inputChanged.bind(this);
             this.inputChangedChild = this.inputChangedChild.bind(this);
             this.inputChangedChildNoKeys = this.inputChangedChildNoKeys.bind(this);
+            this.deleteRow = this.deleteRow.bind(this);
         }
 
         onClickHandler(){
@@ -80,6 +81,15 @@ class App extends Component {
             return travereddata;
         }
 
+        deleteRow(indexvalue){
+            let travereddata = this.state.validJSON;
+            travereddata.splice(indexvalue,1);
+            this.setState({
+                validJSON : this.state.validJSON,
+                editorContent : JSON.stringify(this.state.validJSON,null,'\t')
+            })
+        }
+
         inputChangedChild(elementpath,key,inputvalue,indexvalue){
             let travereddata = this.pathTraversal(elementpath,this.state.validJSON);
             if(Array.isArray(travereddata)){
@@ -123,7 +133,7 @@ class App extends Component {
                           </button>
                       </div>
                       <div className="col-sm-8 col-12 table-area">
-                          <Tabulator  keys={this.state.keys} validJSON={this.state.validJSON} inputChanged={this.inputChanged}  inputChangedChild={this.inputChangedChild} inputChangedChildNoKeys={this.inputChangedChildNoKeys}/>
+                          <Tabulator deleteRow={this.deleteRow}  keys={this.state.keys} validJSON={this.state.validJSON} inputChanged={this.inputChanged}  inputChangedChild={this.inputChangedChild} inputChangedChildNoKeys={this.inputChangedChildNoKeys}/>
                       </div>
                     </div>
                 </div>

@@ -47,11 +47,11 @@ export default class Tabulator extends  Component {
         }else{
             tableElement = <div />;
         }
+
         return(
             <div>
                 {tableElement}
                 { !objKeys.length &&
-
                     <table className="json-table">
                         <tbody>
                             {
@@ -82,11 +82,13 @@ export default class Tabulator extends  Component {
                         <tbody>
                             <tr>
                                 {
-                                    this.props.keys.map((element,index) => {
-                                        return(
-                                            <th key={index}> {element} </th>
-                                        );
-                                    })
+                                    [<th key={"unieq"} ></th>].concat(
+                                        this.props.keys.map((element,index) => {
+                                            return(
+                                                <th key={index}> {element} </th>
+                                            );
+                                        })
+                                    )
                                 }
                             </tr>
                             {
@@ -95,15 +97,18 @@ export default class Tabulator extends  Component {
                                     return(
                                       <tr key={index}>
                                           {
-                                              this.props.keys.map((value,indexvalue)=>{
-                                                  return(
-                                                      <td key={indexvalue}>
-                                                          { element[value] && typeof element[value] !== 'object' && <input type="text" disabled={typeof element[value] === "number" && element[value] % 1 !== 0} value={element[value]} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input form-control"></input>}
-                                                          { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value],`${index}-${value}`) }
-                                                          { !element[value] && <input type="text" value={undefined} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input form-control"></input> }
-                                                      </td>
-                                                  );
-                                              })
+                                              [<td key={"unieq"}><i className="fa fa-minus-circle deleterow" aria-hidden="true" onClick={()=>this.props.deleteRow(`${index}`)}></i></td>].concat(
+                                                  this.props.keys.map((value,indexvalue)=>{
+                                                      return(
+                                                          <td key={indexvalue}>
+                                                              { element[value] && typeof element[value] !== 'object' && <input type="text" disabled={typeof element[value] === "number" && element[value] % 1 !== 0} value={element[value]} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input form-control"></input>}
+                                                              { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value],`${index}-${value}`) }
+                                                              { !element[value] && <input type="text" value={undefined} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input form-control"></input> }
+                                                          </td>
+                                                      );
+                                                  })
+                                              )
+
                                           }
                                       </tr>
                                     );
