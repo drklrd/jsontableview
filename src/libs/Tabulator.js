@@ -2,6 +2,12 @@ import React , { Component } from 'react';
 
 export default class Tabulator extends  Component {
 
+    _handleKeyPress(elementpath,inputvalue,index){
+        if (inputvalue.key === 'Enter') {
+            this.props.inputChangedChildNoKeys(elementpath,inputvalue,index);
+        }
+    }
+
     renderChildTable(obj,elementpath){
 
         if(!Array.isArray(obj)){
@@ -32,7 +38,7 @@ export default class Tabulator extends  Component {
                                               return(
                                                   <td key={indexvalue}>
                                                       { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value],elementpath+ `-${index}-${value}`  ) }
-                                                      { element[value] && typeof element[value] !== 'object' && <input type="text"  disabled={typeof element[value] === "number" && element[value] % 1 !== 0 }    value={element[value]} onChange={(inputvalue)=>this.props.inputChangedChild(elementpath,value,inputvalue,index)} className="table-input form-control"></input> }
+                                                      { element[value] && typeof element[value] !== 'object' && <input type="text"   value={element[value]} onChange={(inputvalue)=>this.props.inputChangedChild(elementpath,value,inputvalue,index)} className="table-input form-control"></input> }
                                                       { !element[value] && <input type="text"  value={undefined} onChange={(inputvalue)=>this.props.inputChangedChild(elementpath,value,inputvalue,index)} className="table-input form-control"></input> }
                                                   </td>
                                               );
@@ -60,7 +66,7 @@ export default class Tabulator extends  Component {
                                     return(
                                         <tr key={index}>
                                             <td>
-                                                { element && typeof element !== 'object' && <input type="text"  disabled={typeof element === "number" && element % 1 !== 0} value={element} onChange={(inputvalue)=>this.props.inputChangedChildNoKeys(elementpath,inputvalue,index)} className="table-input form-control"></input> }
+                                                { element && typeof element !== 'object' && <input type="text"  defaultValue={element} onKeyPress={(e)=>{this._handleKeyPress(elementpath,e,index)}} className="table-input form-control"></input> }
                                             </td>
                                         </tr>
                                     );
@@ -101,7 +107,7 @@ export default class Tabulator extends  Component {
                                                   this.props.keys.map((value,indexvalue)=>{
                                                       return(
                                                           <td key={indexvalue}>
-                                                              { element[value] && typeof element[value] !== 'object' && <input type="text" disabled={typeof element[value] === "number" && element[value] % 1 !== 0} value={element[value]} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input form-control"></input>}
+                                                              { element[value] && typeof element[value] !== 'object' && <input type="text" value={element[value]} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input form-control"></input>}
                                                               { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value],`${index}-${value}`) }
                                                               { !element[value] && <input type="text" value={undefined} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input form-control"></input> }
                                                           </td>
