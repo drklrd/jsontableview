@@ -8,6 +8,19 @@ export default class Tabulator extends  Component {
         }
     }
 
+    _handleKeyPressRoot(index,indexvalue,value){
+        if (indexvalue.key === 'Enter') {
+            this.props.inputChanged(index,indexvalue,value);
+        }
+    }
+
+    _handleKeyPressChild(elementpath,value,inputvalue,index){
+        if (inputvalue.key === 'Enter') {
+            this.props.inputChangedChild(elementpath,value,inputvalue,index);
+        }
+
+    }
+
     renderChildTable(obj,elementpath){
 
         if(!Array.isArray(obj)){
@@ -38,8 +51,8 @@ export default class Tabulator extends  Component {
                                               return(
                                                   <td key={indexvalue}>
                                                       { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value],elementpath+ `-${index}-${value}`  ) }
-                                                      { element[value] && typeof element[value] !== 'object' && <input type="text"   value={element[value]} onChange={(inputvalue)=>this.props.inputChangedChild(elementpath,value,inputvalue,index)} className="table-input form-control"></input> }
-                                                      { !element[value] && <input type="text"  value={undefined} onChange={(inputvalue)=>this.props.inputChangedChild(elementpath,value,inputvalue,index)} className="table-input form-control"></input> }
+                                                      { element[value] && typeof element[value] !== 'object' && <input type="text"   defaultValue={element[value]}  onKeyPress={(e)=>{this._handleKeyPressChild(elementpath,value,e,index)}}  className="table-input form-control"></input> }
+                                                      { !element[value] && <input type="text"  defaultValue={undefined} onKeyPress={(e)=>{this._handleKeyPressChild(elementpath,value,e,index)}} className="table-input form-control"></input> }
                                                   </td>
                                               );
                                           })
@@ -107,9 +120,9 @@ export default class Tabulator extends  Component {
                                                   this.props.keys.map((value,indexvalue)=>{
                                                       return(
                                                           <td key={indexvalue}>
-                                                              { element[value] && typeof element[value] !== 'object' && <input type="text" value={element[value]} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input form-control"></input>}
+                                                              { element[value] && typeof element[value] !== 'object' && <input type="text"  defaultValue={element[value]} onKeyPress={(e)=>{this._handleKeyPressRoot(index,e,value)}}  className="table-input form-control"></input>}
                                                               { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value],`${index}-${value}`) }
-                                                              { !element[value] && <input type="text" value={undefined} onChange={(indexvalue)=>this.props.inputChanged(index,indexvalue,value)} className="table-input form-control"></input> }
+                                                              { !element[value] && <input type="text" defaultValue={undefined} onKeyPress={(e)=>{this._handleKeyPressRoot(index,e,value)}}  className="table-input form-control"></input> }
                                                           </td>
                                                       );
                                                   })
