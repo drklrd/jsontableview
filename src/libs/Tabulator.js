@@ -97,7 +97,7 @@ export default class Tabulator extends  Component {
 
         let renderTable;
 
-        if(this.props.keys && this.props.keys.length){
+        if(this.props.keys && this.props.keys.length && this.props.validJSON && this.props.validJSON.length){
             let renderJSONPart;
             if(this.props.validJSON && this.props.validJSON.length){
                 renderJSONPart = this.props.validJSON.map((element,index) => {
