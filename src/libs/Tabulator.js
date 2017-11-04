@@ -110,7 +110,7 @@ export default class Tabulator extends  Component {
                                           <td key={indexvalue}>
                                               { element[value] && typeof element[value] !== 'object' && <input type="text"  defaultValue={element[value]} onKeyPress={(e)=>{this._handleKeyPressRoot(index,e,value)}}  className="table-input form-control"></input>}
                                               { element[value] && typeof element[value] === 'object' && this.renderChildTable(element[value],`${index}-${value}`) }
-                                              { !element[value] && <input type="text" defaultValue={undefined} onKeyPress={(e)=>{this._handleKeyPressRoot(index,e,value)}}  className="table-input form-control"></input> }
+                                              { !element[value] && <input type="text" defaultValue={element[value] === undefined ? undefined : element[value]} onKeyPress={(e)=>{this._handleKeyPressRoot(index,e,value)}}  className="table-input form-control"></input> }
                                           </td>
                                       );
                                   })
