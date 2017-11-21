@@ -137,9 +137,12 @@ class App extends Component {
                               <i className="fa fa-hand-o-right" aria-hidden="true"></i>
                           </button>
                       </div>
-                      <div className="col-sm-8 col-12 table-area">
-                          <Tabulator deleteRow={this.deleteRow}  keys={this.state.keys} validJSON={this.state.validJSON} inputChanged={this.inputChanged}  inputChangedChild={this.inputChangedChild} inputChangedChildNoKeys={this.inputChangedChildNoKeys}/>
+                      <div className="col-sm-8 col-12">
+                          <div className=" table-area">
+                              <Tabulator deleteRow={this.deleteRow}  keys={this.state.keys} validJSON={this.state.validJSON} inputChanged={this.inputChanged}  inputChangedChild={this.inputChangedChild} inputChangedChildNoKeys={this.inputChangedChildNoKeys}/>
+                          </div>
                       </div>
+
                     </div>
                 </div>
             );
