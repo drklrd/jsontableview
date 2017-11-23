@@ -28,25 +28,35 @@ class App extends Component {
                 this.setState({
                     validJSON : []
                 },()=>{
-                    let validJSON = JSON.parse(this.state.editorContent);
-                    if(!Array.isArray(validJSON)){
-                        validJSON = [validJSON];
-                    }
-                    let uniqueKeys = [];
-                    validJSON.forEach(json=>{
-                        if(typeof json === "object"){
-                            for(var key in json){
-                                if(uniqueKeys.indexOf(key) === -1){
-                                    uniqueKeys.push(key);
+                    try{
+                        let validJSON = JSON.parse(this.state.editorContent);
+                        if(typeof validJSON !== 'object'){
+                            alert('Must be valid JSON object');
+                            return;
+                        }
+                        if(!Array.isArray(validJSON)){
+                            validJSON = [validJSON];
+                        }
+                        let uniqueKeys = [];
+                        validJSON.forEach(json=>{
+                            if(typeof json === "object"){
+                                for(var key in json){
+                                    if(uniqueKeys.indexOf(key) === -1){
+                                        uniqueKeys.push(key);
+                                    }
                                 }
                             }
-                        }
-                    })
-                    const keys = uniqueKeys;
-                    this.setState({
-                        keys,
-                        validJSON
-                    });
+                        })
+                        const keys = uniqueKeys;
+                        this.setState({
+                            keys,
+                            validJSON
+                        });
+                    }
+                    catch(e){
+                        alert('Must be valid JSON object');
+                        return;
+                    }
                 });
 
             }
