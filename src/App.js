@@ -4,6 +4,8 @@ import './App.css';
 import Header from './components/Header';
 import AceEditor from './components/Aceeditor';
 import Tabulator from './libs/Tabulator';
+import 'brace/mode/java';
+import 'brace/theme/monokai';
 
 class App extends Component {
         constructor(){

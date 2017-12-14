@@ -22,10 +22,10 @@ export default class Tabulator extends  Component {
     }
 
     renderChildTable(obj,elementpath){
-
         if(!Array.isArray(obj)){
             obj = [obj];
         }
+
         let objKeys =  typeof obj[0] === "object" ?  Object.keys(obj[0]) : [];
         let tableElement;
         if(objKeys && objKeys.length){
@@ -79,6 +79,7 @@ export default class Tabulator extends  Component {
                                     return(
                                         <tr key={index}>
                                             <td>
+                                                { element && typeof element === 'object' && this.renderChildTable(element,elementpath + `-${index}`) }
                                                 { element && typeof element !== 'object' && <input type="text"  defaultValue={element} onKeyPress={(e)=>{this._handleKeyPress(elementpath,e,index)}} className="table-input form-control"></input> }
                                             </td>
                                         </tr>
